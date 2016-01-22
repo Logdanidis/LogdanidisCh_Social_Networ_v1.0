@@ -23,39 +23,57 @@ Router.route('/', function () {
 });
 
 Router.route('/addsite', function () {
-   this.render('navbar', {
-    to:"navbar"
-  });
-   this.render('welcome', {
-    to:"welcome"
-  });
-   this.render('addSite', {
-    to:"head"
-  });
-   this.render('website_form', {
-    to:"main"
-  });
-   this.render('time', {
-    to:"footer"
-  });
+ this.render('navbar', {
+  to:"navbar"
+});
+ this.render('welcome', {
+  to:"welcome"
+});
+ this.render('addSite', {
+  to:"head"
+});
+ this.render('website_form', {
+  to:"main"
+});
+ this.render('time', {
+  to:"footer"
+});
 });
 
 Router.route('/about', function () {
-   this.render('navbar', {
-    to:"navbar"
-  });
-   this.render('welcome', {
-    to:"welcome"
-  });
-   this.render('contact', {
-    to:"head"
-  });
-   this.render('about', {
-    to:"main"
-  });
-   this.render('time', {
-    to:"footer"
-  });
+ this.render('navbar', {
+  to:"navbar"
+});
+ this.render('welcome', {
+  to:"welcome"
+});
+ this.render('aboutPage', {
+  to:"head"
+});
+ this.render('comment', {
+  to:"main"
+});
+ this.render('time', {
+  to:"footer"
+});
+});
+
+Router.route('/aboutMe', function () {
+ this.render('navbar', {
+  to:"navbar"
+});
+ this.render('welcome', {
+  to:"welcome"
+});
+ this.render('contact', {
+  to:"head"
+});
+ this.render('contacts', {
+  to:"main"
+});
+ this.render('time', {
+  to:"footer"
+});
 });
 
 // This Add Login Fild / Create User Fild
@@ -140,9 +158,9 @@ Template.website_item.events({
 
 Template.comment.events({
   "click .js-toggle-comment-form":function(event){
-      $("#comment_item").toggle('slow');
-    }, 
-    "submit .js-save-comment-form":function(event){
+    $("#comment_item").toggle('slow');
+  }, 
+  "submit .js-save-comment-form":function(event){
       // here is an example of how to get the url out of the form:
       
       var comment;
@@ -158,7 +176,7 @@ Template.comment.events({
       //  put your website saving code in here! 
       return false;// stop the form submit from reloading the page
     }
-});
+  });
 
 Template.website_form.events({
 	"click .js-toggle-website-form":function(event){
@@ -190,6 +208,11 @@ Template.website_form.events({
 		}
 	});
 
+
+  // I add meteor add matteodem:easy-search
+  Template.searchBox.helpers({
+    playersIndex: () => PlayersIndex
+  });
 
  // This Add Current Time 
  Template.time.helpers({ time : new Date()});

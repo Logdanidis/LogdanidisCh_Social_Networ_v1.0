@@ -38,6 +38,9 @@
 				<a class="navbar-brand navbar-left" href="/About">
 					About Page   
 				</a>
+				<a class="navbar-brand navbar-left" href="/AboutMe">
+					Logdanidis Ch.   
+				</a>
 				<!-- Shearch Field -->
 				{{#if currentUser}}
 				<form class="navbar-form navbar-left" role="search">
@@ -68,6 +71,7 @@
 	<div class="row">   
 		<div class="col-xs-12 col-md-3 homePColor">
 			<p>Now You Are {{ username }}</p>
+					<!-- {{>searchBox}} -->
 		</div> <!-- / col -->
 	</div> <!-- / row -->
 </template>
@@ -80,7 +84,8 @@
 
 <template name="contact">
 	<div class="container">
-		<h2>Here Are My Contacts.</h2>
+		
+		<p>Here Are My Contacts.</p>
 	</div>
 </template>
 
@@ -139,7 +144,7 @@
 			<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
 		</a>		
 		<!-- you will be putting your up and down vote buttons in here! -->
-		{{>comment}}
+		
 		<!-- meteor add konecty:mongo-counter -->
 		<p>Site Up it {{counter}} times.</p>
 	</li>
@@ -147,24 +152,24 @@
 
 <template name="comment">
 	<a href="#" class="btn btn-default js-toggle-comment-form">Comments
-			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-		</a>
-		<div id="comment_item" class="hidden_div">
-			<form class="js-save-comment-form">
-				<div class="jumbotron">
-				<p>Leave a comment.</p>
+		<span aria-hidden="true"></span>
+	</a>
+	<div id="comment_item" class="hidden_div">
+		<form class="js-save-comment-form">
+			<div class="jumbotron">
+				<p>Leave a comment for This Page.</p>
 				<div class="form-group">
-					<label for="comment">Comment</label>
+					<label for="comment"></label>
 					<input type="text" class="form-control" id="comment" placeholder="Leave a comment here...">
 				</div>
 
 				<button type="submit" class="btn btn-default">Submit</button>
 				
-					<p>Comments</p>
-					{{>comment_list}}
-				</div><!-- / Comments -->
-			</form>
-		</div>
+				<p>Comments</p>
+				{{>comment_list}}
+			</div><!-- / Comments -->
+		</form>
+	</div>
 </template>
 
 <template name="comment_list">
@@ -177,17 +182,30 @@
 
 <template name="comment_item">
 	<li>
-	<p>{{comment}}</p>
-</li>
+		<p>{{comment}}</p>
+	</li>
 </template>
 
-<template name="about">
+<!-- <template name="searchBox">
+    {{> EasySearch.Input index=playersIndex }}
+
+    <ul>
+        {{#EasySearch.Each index=playersIndex }}
+            <li>Name of the player: {{name}}</li>
+        {{/EasySearch.Each}}
+    </ul>
+</template> -->
+
+<template name="aboutPage">
+	<p>This Is A Beta Page For Coursera.</p>
+</template>
+
+<template name="contacts">
 	<div class="row marketing">
 		<div class="col-lg-6">
 			<h3>My Mail</h3>
 			<img src="gmail.png" 
 			width="20px" />
-			<!-- <link rel="icon" href="\resources\images\gmail.png"> -->
 			<li>
 				<p>xarislog@gmail.com</p>     
 			</li>
