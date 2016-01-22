@@ -122,7 +122,7 @@ Template.website_list.helpers({
 
 Template.comment_list.helpers({
   comment:function(){
-    return Comments.find({}, {sort:{counter:-1}});
+    return Comments.find({}, {sort:{createdOn:-1}});
   }
 });
 
@@ -170,7 +170,8 @@ Template.comment.events({
       // console.log("The url they entered is: "+createdOn)
 
       Comments.insert({
-        comment:comment
+        comment:comment,
+        createdOn: new Date()
       });
 
       //  put your website saving code in here! 
@@ -210,9 +211,9 @@ Template.website_form.events({
 
 
   // I add meteor add matteodem:easy-search
-  Template.searchBox.helpers({
-    playersIndex: () => PlayersIndex
-  });
+  // Template.searchBox.helpers({
+  //   playersIndex: () => PlayersIndex
+  // });
 
  // This Add Current Time 
  Template.time.helpers({ time : new Date()});
