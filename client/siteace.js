@@ -99,7 +99,7 @@ Template.body.helpers({username:function(){
 // helper function that returns all available websites
 Template.website_list.helpers({
 	websites:function(){
-		return Websites.find({});
+		return Websites.find({}, {sort:{rating:-1}});
 	}
 });
 
@@ -110,6 +110,7 @@ Template.website_list.helpers({
 
 Template.website_item.events({
 	"click .js-upvote":function(event){
+  
 		// example of how you can access the id for the website in the database
 		// (this is the data context for the template)
 		var website_id = this._id;
@@ -124,7 +125,18 @@ Template.website_item.events({
 		console.log("Down voting website with id "+website_id);
 			// put the code in here to remove a vote from a website!
 			return false;// prevent the button from reloading the page
-		}
+		},
+    "click .js-rate-site":function(event){
+      // var rating = $('#rating').data('userrating');
+      var rating = $(event.currentTarget).data("userrating");
+      // rating=0;
+      console.log("rate = "+rating);
+
+      var website_id = this.id;
+      console.log(website_id);
+      // Here I Save The Website Rating valeu
+      Websites.update ({_id:website_id}, {$set: {rating:rating}})
+    }
 	})
 Template.website_form.events({
 	"click .js-toggle-website-form":function(event){
@@ -132,8 +144,24 @@ Template.website_form.events({
 	}, 
 	"submit .js-save-website-form":function(event){
 			// here is an example of how to get the url out of the form:
-			var url = event.target.url.value;
-			console.log("The url they entered is: "+url);
+			
+      var title, url, description, createdOn;
+      title = event.target.title.value;
+      url = event.target.url.value;
+      description = event.target.description.value;
+      // createdOn = event.target.createdOn.new Date();
+      console.log("The url they entered is: "+url)
+      console.log("The url they entered is: "+title)
+      console.log("The url they entered is: "+description)
+      // console.log("The url they entered is: "+createdOn)
+
+      Websites.insert({
+        title:title,
+        url:url,
+        description:description,
+        createdOn: new Date()
+      });
+
 
 		//  put your website saving code in here!	
 			return false;// stop the form submit from reloading the page
