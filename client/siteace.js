@@ -24,38 +24,38 @@ Router.route('/', function () {
 
 Router.route('/addsite', function () {
  this.render('navbar', {
-    to:"navbar"
-  });
-  this.render('welcome', {
-    to:"welcome"
-  });
-  this.render('addSite', {
-    to:"head"
-  });
-  this.render('website_form', {
-    to:"main"
-  });
-  this.render('time', {
-    to:"footer"
-  });
+  to:"navbar"
+});
+ this.render('welcome', {
+  to:"welcome"
+});
+ this.render('addSite', {
+  to:"head"
+});
+ this.render('website_form', {
+  to:"main"
+});
+ this.render('time', {
+  to:"footer"
+});
 });
 
 Router.route('/about', function () {
  this.render('navbar', {
-    to:"navbar"
-  });
-  this.render('welcome', {
-    to:"welcome"
-  });
-  this.render('contact', {
-    to:"head"
-  });
-  this.render('about', {
-    to:"main"
-  });
-  this.render('time', {
-    to:"footer"
-  });
+  to:"navbar"
+});
+ this.render('welcome', {
+  to:"welcome"
+});
+ this.render('contact', {
+  to:"head"
+});
+ this.render('about', {
+  to:"main"
+});
+ this.render('time', {
+  to:"footer"
+});
 });
 
 // This Add Login Fild / Create User Fild
@@ -68,13 +68,13 @@ Template.loginCheck.helpers({username:function(){
 	if (Meteor.user()){
 		return "Login As "+Meteor.user().username+" Have Fun!";
       //return Meteor.user().emails[0].address;
-  }
-  else {
-  	return "NOT Login!";
-  }
+    }
+    else {
+     return "NOT Login!";
+   }
 
     // console.log(Meteor.user().emails[0].address);   
-}
+  }
 });
 
 // This Check if User Login and Change Layout.
@@ -82,13 +82,13 @@ Template.body.helpers({username:function(){
 	if (Meteor.user()){
 		return Meteor.user().username;
       //return Meteor.user().emails[0].address;
-  }
-  else {
-  	return "Anonymous App User PLS Login";
-  }
+    }
+    else {
+     return "Anonymous App User PLS Login";
+   }
 
     // console.log(Meteor.user().emails[0].address);   
-}
+  }
 
 });
 
@@ -99,7 +99,7 @@ Template.body.helpers({username:function(){
 // helper function that returns all available websites
 Template.website_list.helpers({
 	websites:function(){
-		return Websites.find({}, {sort:{rating:-1}});
+		return Websites.find({}, {sort:{counter:-1}});
 	}
 });
 
@@ -107,14 +107,17 @@ Template.website_list.helpers({
 /////
 // template events 
 /////
+// setCounter(upCount, upCount)
 
 Template.website_item.events({
 	"click .js-upvote":function(event){
-  
+
 		// example of how you can access the id for the website in the database
 		// (this is the data context for the template)
 		var website_id = this._id;
 		console.log("Up voting website with id "+website_id);
+
+
 		// put the code in here to add a vote to a website!
 			return false;// prevent the button from reloading the page
 		}, 
@@ -123,21 +126,46 @@ Template.website_item.events({
 		// (this is the data context for the template)
 		var website_id = this._id;
 		console.log("Down voting website with id "+website_id);
+
+
 			// put the code in here to remove a vote from a website!
 			return false;// prevent the button from reloading the page
 		},
-    "click .js-rate-site":function(event){
-      // var rating = $('#rating').data('userrating');
-      var rating = $(event.currentTarget).data("userrating");
-      // rating=0;
-      console.log("rate = "+rating);
+    "click .js-toggle-comment-form":function(event){
+      $("#website_item").toggle('slow');
+    }, 
+    "submit .js-save-comment-form":function(event){
+      // here is an example of how to get the url out of the form:
+      
+      var comment;
+      comment = event.target.comment.value;
+      
+      console.log("The new comment is: "+comment)
+      // console.log("The url they entered is: "+createdOn)
 
-      var website_id = this.id;
-      console.log(website_id);
-      // Here I Save The Website Rating valeu
-      Websites.update ({_id:website_id}, {$set: {rating:rating}})
+      Websites.insert({
+        comment:comment
+      });
+
+
+    //  put your website saving code in here! 
+      return false;// stop the form submit from reloading the page
     }
-	})
+
+
+    // "click .js-rate-site":function(event){
+    //   // var rating = $('#rating').data('userrating');
+    //   var rating = $(event.currentTarget).data("userrating");
+    //   // rating=0;
+    //   console.log("rate = "+rating);
+
+    //   var website_id = this.id;
+    //   console.log(website_id);
+    //   // Here I Save The Website Rating valeu
+    //   Websites.update ({_id:website_id}, {$set: {rating:rating}})
+    // }
+  });
+
 Template.website_form.events({
 	"click .js-toggle-website-form":function(event){
 		$("#website_form").toggle('slow');
@@ -167,6 +195,7 @@ Template.website_form.events({
 			return false;// stop the form submit from reloading the page
 		}
 	});
+
 
  // This Add Current Time 
  Template.time.helpers({ time : new Date()});

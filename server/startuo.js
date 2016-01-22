@@ -1,5 +1,7 @@
-if (Meteor.isServer) {
+
 	// start up function that creates entries in the Websites databases.
+    // incrementCounter(upCount, [0])
+
   Meteor.startup(function () {
     // code to run on server at startup
     if (!Websites.findOne()){
@@ -32,17 +34,15 @@ if (Meteor.isServer) {
   });
 
     Meteor.startup(function(){
-        if (NewSite.find().count() == 0 ){
-            NewSite.insert(
+        if (comment.find().count() == 0 ){
+            comment.insert(
             {
-                title:"Charis Art", 
-            url:"xlogart.wordpress.com", 
-            description:"My Art", 
+                comment:"Nice Site", 
             createdOn:new Date()
             }
                 );  
 
-        }//end if NewSite
+        }//end if comment
 
     });
-}
+
