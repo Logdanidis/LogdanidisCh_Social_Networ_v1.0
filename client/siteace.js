@@ -23,39 +23,39 @@ Router.route('/', function () {
 });
 
 Router.route('/addsite', function () {
- this.render('navbar', {
-  to:"navbar"
-});
- this.render('welcome', {
-  to:"welcome"
-});
- this.render('addSite', {
-  to:"head"
-});
- this.render('website_form', {
-  to:"main"
-});
- this.render('time', {
-  to:"footer"
-});
+   this.render('navbar', {
+    to:"navbar"
+  });
+   this.render('welcome', {
+    to:"welcome"
+  });
+   this.render('addSite', {
+    to:"head"
+  });
+   this.render('website_form', {
+    to:"main"
+  });
+   this.render('time', {
+    to:"footer"
+  });
 });
 
 Router.route('/about', function () {
- this.render('navbar', {
-  to:"navbar"
-});
- this.render('welcome', {
-  to:"welcome"
-});
- this.render('contact', {
-  to:"head"
-});
- this.render('about', {
-  to:"main"
-});
- this.render('time', {
-  to:"footer"
-});
+   this.render('navbar', {
+    to:"navbar"
+  });
+   this.render('welcome', {
+    to:"welcome"
+  });
+   this.render('contact', {
+    to:"head"
+  });
+   this.render('about', {
+    to:"main"
+  });
+   this.render('time', {
+    to:"footer"
+  });
 });
 
 // This Add Login Fild / Create User Fild
@@ -89,7 +89,6 @@ Template.body.helpers({username:function(){
 
     // console.log(Meteor.user().emails[0].address);   
   }
-
 });
 
 /////
@@ -101,6 +100,12 @@ Template.website_list.helpers({
 	websites:function(){
 		return Websites.find({}, {sort:{counter:-1}});
 	}
+});
+
+Template.comment_list.helpers({
+  comment:function(){
+    return Comments.find({}, {sort:{counter:-1}});
+  }
 });
 
 
@@ -130,9 +135,12 @@ Template.website_item.events({
 
 			// put the code in here to remove a vote from a website!
 			return false;// prevent the button from reloading the page
-		},
-    "click .js-toggle-comment-form":function(event){
-      $("#website_item").toggle('slow');
+		}
+  });
+
+Template.comment.events({
+  "click .js-toggle-comment-form":function(event){
+      $("#comment_item").toggle('slow');
     }, 
     "submit .js-save-comment-form":function(event){
       // here is an example of how to get the url out of the form:
@@ -140,31 +148,17 @@ Template.website_item.events({
       var comment;
       comment = event.target.comment.value;
       
-      console.log("The new comment is: "+comment)
+      console.log("The new comment is: "+comment);
       // console.log("The url they entered is: "+createdOn)
 
-      Websites.insert({
+      Comments.insert({
         comment:comment
       });
 
-
-    //  put your website saving code in here! 
+      //  put your website saving code in here! 
       return false;// stop the form submit from reloading the page
     }
-
-
-    // "click .js-rate-site":function(event){
-    //   // var rating = $('#rating').data('userrating');
-    //   var rating = $(event.currentTarget).data("userrating");
-    //   // rating=0;
-    //   console.log("rate = "+rating);
-
-    //   var website_id = this.id;
-    //   console.log(website_id);
-    //   // Here I Save The Website Rating valeu
-    //   Websites.update ({_id:website_id}, {$set: {rating:rating}})
-    // }
-  });
+});
 
 Template.website_form.events({
 	"click .js-toggle-website-form":function(event){

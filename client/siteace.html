@@ -80,7 +80,7 @@
 
 <template name="contact">
 	<div class="container">
-		<p>Here Are My Contacts.</p>
+		<h2>Here Are My Contacts.</h2>
 	</div>
 </template>
 
@@ -115,7 +115,7 @@
 	{{#if currentUser}}
 	<ol>
 		{{#each websites}}
-		{{>website_item}}
+		{{>website_item}}		
 		{{/each}}
 	</ol>
 	{{/if}}
@@ -137,11 +137,19 @@
 		</a>
 		<a href="#" class="btn btn-default js-downvote">
 			<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
-		</a>
-		<a href="#" class="btn btn-default js-toggle-comment-form">Comments
+		</a>		
+		<!-- you will be putting your up and down vote buttons in here! -->
+		{{>comment}}
+		<!-- meteor add konecty:mongo-counter -->
+		<p>Site Up it {{counter}} times.</p>
+	</li>
+</template>
+
+<template name="comment">
+	<a href="#" class="btn btn-default js-toggle-comment-form">Comments
 			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 		</a>
-		<div id="website_item" class="hidden_div">
+		<div id="comment_item" class="hidden_div">
 			<form class="js-save-comment-form">
 				<div class="jumbotron">
 				<p>Leave a comment.</p>
@@ -153,16 +161,24 @@
 				<button type="submit" class="btn btn-default">Submit</button>
 				
 					<p>Comments</p>
-					<p>
-						{{comment}}
-					</p>
+					{{>comment_list}}
 				</div><!-- / Comments -->
 			</form>
 		</div>
-		<!-- you will be putting your up and down vote buttons in here! -->
-		<!-- meteor add konecty:mongo-counter -->
-		<p>Site Up it {{counter}} times.</p>
-	</li>
+</template>
+
+<template name="comment_list">
+	<ol>
+		{{#each comment}}
+		{{>comment_item}}		
+		{{/each}}
+	</ol>
+</template>
+
+<template name="comment_item">
+	<li>
+	<p>{{comment}}</p>
+</li>
 </template>
 
 <template name="about">

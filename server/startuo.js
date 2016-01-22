@@ -34,13 +34,11 @@
   });
 
     Meteor.startup(function(){
-        if (comment.find().count() == 0 ){
-            comment.insert(
-            {
+        if (Comments.findOne()){
+            Comments.insert({
                 comment:"Nice Site", 
-            createdOn:new Date()
-            }
-                );  
+                createdOn:new Date()
+            });  
 
         }//end if comment
 
