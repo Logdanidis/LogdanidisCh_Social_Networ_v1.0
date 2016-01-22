@@ -1,0 +1,179 @@
+<head>
+	<meta charset="UTF-8">
+	<title>This is Beta Page</title>
+	<!-- Here Add Custom Link Icon -->
+	<link rel="icon" href="Network-Web-icon.png">
+</head>
+
+<body>
+	
+</body>
+<!-- I Add meteor add iron:routerpack -->
+<template name="ApplicationLayout">
+	{{> yield "navbar"}}
+	<div class="container">
+		{{> yield "welcome"}}
+		<div class="jumbotron">
+			{{> yield "head"}}
+			{{> yield "main"}}
+		</div>
+		{{> yield "footer"}}
+	</div>
+</template>
+
+<template name="navbar">
+	<!-- navbar  - you will be putting the login functions here -->
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<!-- I Add meteor add accounts-ui accounts-password pack -->
+				<a class="navbar-brand navbar-left" href="/">
+					Site Ace
+				</a>
+				{{#if currentUser}}
+				<a class="navbar-brand navbar-left" href="/addsite">
+					Add A Site   
+				</a>
+				{{/if}}
+				<a class="navbar-brand navbar-left" href="/About">
+					About Page   
+				</a>
+				<!-- Shearch Field -->
+				{{#if currentUser}}
+				<form class="navbar-form navbar-left" role="search">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Search">
+					</div>
+					<button type="submit" class="btn btn-default">Submit</button>
+				</form>
+				{{/if}}
+				<p class="navbar-brand navbar-right">
+					Signed in as: {{> loginButtons}}
+				</p>
+			</div>
+		</div>
+	</nav>
+	<br/>
+	<br/>
+	<br/>
+</template>
+
+<template name="welcome">
+	<div class="container">
+		<h1>Welcome! </h1>
+	</div>
+</template>
+
+<template name="loginCheck">
+	<div class="row">   
+		<div class="col-xs-12 col-md-3 homePColor">
+			<p>Now You Are {{ username }}</p>
+		</div> <!-- / col -->
+	</div> <!-- / row -->
+</template>
+
+<template name="addSite">
+	<div class="container">
+		<p>Push '+' Button to Add A Site.</p>
+	</div>
+</template>
+
+<template name="contact">
+	<div class="container">
+		<p>Here Are My Contacts.</p>
+	</div>
+</template>
+
+<template name="website_form">
+	{{#if currentUser}}
+	<a class="btn btn-default js-toggle-website-form" href="#">
+		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+	</a>
+	<div id="website_form" class="hidden_div">
+		<form class="js-save-website-form">
+			<div class="form-group">
+				<label for="url">Site address</label>
+				<input type="text" class="form-control" id="url" placeholder="http://www.mysite.com">
+			</div>
+			<div class="form-group">
+				<label for="title">Title</label>
+				<input type="text" class="form-control" id="title" placeholder="Mysite">
+			</div>
+			<div class="form-group">
+				<label for="description">Description</label>
+				<input type="text" class="form-control" id="description" placeholder="I found this site really useful for ...">
+			</div>
+
+			<button type="submit" class="btn btn-default">Submit</button>
+		</form>
+	</div>
+	{{/if}}
+</template>
+
+<!-- template that displays several website items -->
+<template name="website_list">
+	{{#if currentUser}}
+	<ol>
+		{{#each websites}}
+		{{>website_item}}
+		{{/each}}
+	</ol>
+	{{/if}}
+</template>
+
+<!-- template that displays individual website entries -->
+<template name="website_item">
+	<li>
+		<a href="{{url}}">{{title}}</a>
+		<p>
+			{{description}}
+		</p>
+		<a href="#" class="btn btn-default js-upvote">
+			<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+		</a>
+		<a href="#" class="btn btn-default js-downvote">
+			<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+		</a>
+		<!-- you will be putting your up and down vote buttons in here! -->
+	</li>
+</template>
+
+<template name="about">
+	<div class="row marketing">
+		<div class="col-lg-6">
+			<h3>My Mail</h3>
+			<img src="gmail.png" 
+			width="20px" />
+			<!-- <link rel="icon" href="\resources\images\gmail.png"> -->
+			<li>
+				<p>xarislog@gmail.com</p>     
+			</li>
+			<li>
+				<p>xarisandrapps@gmail.com</p>
+			</li>
+			<h3>My LinkedIn</h3>
+			<img src="linkedin.png" 
+			width="20px" />
+			<p>https://gr.linkedin.com/in/charalampos-logdanidis-69182a108</p>         
+		</div>
+		<div class="col-lg-6">
+			<h3>My GitHub</h3>
+			<img src="github.png" 
+			width="30px" />
+			<p>https://github.com/Logdanidis</p>           
+		</div>
+	</div>
+</template>
+
+<template name="time">
+	<div class="timecolor">
+		<p>Time Is: <b> {{time}} </b>!</p>
+	</div>
+	<!-- I Add A Footer In Page -->
+	<footer class="footer footerColor">
+		<p>&copy; 2015 Charalampos Logdanidis.</p>
+	</footer>
+</template>
+
+
+
