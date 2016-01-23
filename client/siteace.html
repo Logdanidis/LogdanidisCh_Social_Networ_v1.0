@@ -72,7 +72,7 @@
 	<div class="row">   
 		<div class="col-xs-12 col-md-3 homePColor">
 			<p>Now You Are <ins>{{ username }}</ins></p>
-					<!-- {{>searchBox}} -->
+			<!-- {{>searchBox}} -->
 		</div> <!-- / col -->
 	</div> <!-- / row -->
 </template>
@@ -122,7 +122,8 @@
 	<ol>
 		{{#each websites}}
 		{{>website_item}}
-		<h6><ins>This Site Added By User: {{getUser createdBy}}</ins></h6>		
+		<h6><ins>This Site Added By User: <b>{{getUser createdBy}}</b>.</ins></h6>
+		<h6><ins>At: <b>{{createdOn}}</b>.</ins></h6>		
 		{{/each}}
 	</ol>
 	{{/if}}
@@ -178,7 +179,8 @@
 	<ol>
 		{{#each comment}}
 		{{>comment_item}}
-		<h6><ins>Comment By User: {{getUser createdBy}}</ins></h6>	
+		<h6><ins>Comment By User: <b>{{getUser createdBy}}</b>.</ins></h6>
+		<h6><ins>At: <b>{{createdOn}}</b>.</ins></h6>	
 		{{/each}}
 	</ol>
 </template>
