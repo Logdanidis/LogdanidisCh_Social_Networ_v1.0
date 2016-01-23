@@ -71,7 +71,7 @@
 <template name="loginCheck">
 	<div class="row">   
 		<div class="col-xs-12 col-md-3 homePColor">
-			<p>Now You Are {{ username }}</p>
+			<p>Now You Are <ins>{{ username }}</ins></p>
 					<!-- {{>searchBox}} -->
 		</div> <!-- / col -->
 	</div> <!-- / row -->
@@ -121,7 +121,8 @@
 	{{#if currentUser}}
 	<ol>
 		{{#each websites}}
-		{{>website_item}}		
+		{{>website_item}}
+		<h6><ins>This Site Added By User: {{getUser createdBy}}</ins></h6>		
 		{{/each}}
 	</ol>
 	{{/if}}
@@ -143,11 +144,11 @@
 		</a>
 		<a href="#" class="btn btn-default js-downvote">
 			<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
-		</a>		
+		</a>
+		{{>allCount}}		
 		<!-- you will be putting your up and down vote buttons in here! -->
 		
-		<!-- meteor add konecty:mongo-counter -->
-		<p>Site Up it {{counter}} times.</p>
+		
 	</li>
 </template>
 
@@ -166,7 +167,7 @@
 
 				<button type="submit" class="btn btn-default">Submit</button>
 				
-				<p>Comments</p>
+				<p><ins>Comments</ins></p>
 				{{>comment_list}}
 			</div><!-- / Comments -->
 		</form>
@@ -176,7 +177,8 @@
 <template name="comment_list">
 	<ol>
 		{{#each comment}}
-		{{>comment_item}}		
+		{{>comment_item}}
+		<h6><ins>Comment By User: {{getUser createdBy}}</ins></h6>	
 		{{/each}}
 	</ol>
 </template>
@@ -184,18 +186,9 @@
 <template name="comment_item">
 	<li>
 		<p>{{comment}}</p>
+
 	</li>
 </template>
-
-<!-- <template name="searchBox">
-    {{> EasySearch.Input index=playersIndex }}
-
-    <ul>
-        {{#EasySearch.Each index=playersIndex }}
-            <li>Name of the player: {{name}}</li>
-        {{/EasySearch.Each}}
-    </ul>
-</template> -->
 
 <template name="aboutPage">
 	<p>This Is A Beta Page For Coursera.</p>
@@ -204,7 +197,7 @@
 <template name="contacts">
 	<div class="row marketing">
 		<div class="col-lg-6">
-			<h3>My Mail</h3>
+			<h3><ins>My Mail</ins></h3>
 			<img src="gmail.png" 
 			width="20px" />
 			<li>
@@ -213,13 +206,13 @@
 			<li>
 				<p>xarisandrapps@gmail.com</p>
 			</li>
-			<h3>My LinkedIn</h3>
+			<h3><ins>My LinkedIn</ins></h3>
 			<img src="linkedin.png" 
 			width="20px" />
 			<p>https://gr.linkedin.com/in/charalampos-logdanidis-69182a108</p>         
 		</div>
 		<div class="col-lg-6">
-			<h3>My GitHub</h3>
+			<h3><ins>My GitHub</ins></h3>
 			<img src="github.png" 
 			width="30px" />
 			<p>https://github.com/Logdanidis</p>           
@@ -227,13 +220,17 @@
 	</div>
 </template>
 
+<template name="allCount">
+	<h4>Site Up: {{moveUP}}</h4>
+	<h4>Site Down: {{moveDown}}</h4>
+	<h4>Site most Up: {{mostUp}}</h4>	
+</template>
+
 <template name="time">
-	<div class="timecolor">
-		<p>Time Is: <b> {{time}} </b>!</p>
-	</div>
+	
 	<!-- I Add A Footer In Page -->
 	<footer class="footer footerColor">
-		<p>&copy; 2016 Charalampos Logdanidis.</p>
+		<p><ins>&copy; 2016 Charalampos Logdanidis.</ins></p>
 	</footer>
 </template>
 

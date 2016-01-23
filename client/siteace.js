@@ -116,13 +116,31 @@ Template.body.helpers({username:function(){
 // helper function that returns all available websites
 Template.website_list.helpers({
 	websites:function(){
-		return Websites.find({}, {sort:{counter:-1}});
-	}
+		return Websites.find({}, {sort:{createdOn:-1}});
+	},
+  getUser:function(user_id){
+    var user = Meteor.users.findOne({_id:user_id});
+    if (user){
+      return user.username;
+    }
+    else {
+      return "Anonymous";
+    }
+  }
 });
 
 Template.comment_list.helpers({
   comment:function(){
     return Comments.find({}, {sort:{createdOn:-1}});
+  },
+  getUser:function(user_id){
+    var user = Meteor.users.findOne({_id:user_id});
+    if (user){
+      return user.username;
+    }
+    else {
+      return "Anonymous";
+    }
   }
 });
 
@@ -133,7 +151,12 @@ Template.comment_list.helpers({
 // setCounter(upCount, upCount)
 
 Template.website_item.events({
+
 	"click .js-upvote":function(event){
+    // var moveUP = 0;
+
+    // moveUP += 1;
+    //     document.getElementById("moveUP").innerHTML = moveUP;
 
 		// example of how you can access the id for the website in the database
 		// (this is the data context for the template)
@@ -168,14 +191,16 @@ Template.comment.events({
       
       console.log("The new comment is: "+comment);
       // console.log("The url they entered is: "+createdOn)
-
-      Comments.insert({
-        comment:comment,
-        createdOn: new Date()
-      });
+      if (Meteor.user()) {
+        Comments.insert({
+          comment:comment,
+          createdOn: new Date(),
+          createdBy:Meteor.user()._id
+        });
+      }
 
       //  put your website saving code in here! 
-      return false;// stop the form submit from reloading the page
+      return true;// stop the form submit from reloading the page
     }
   });
 
@@ -200,21 +225,16 @@ Template.website_form.events({
         title:title,
         url:url,
         description:description,
-        createdOn: new Date()
+        createdOn: new Date(),
+        createdBy:Meteor.user()._id
       });
-
-
 		//  put your website saving code in here!	
-			return false;// stop the form submit from reloading the page
+			return true;// stop the form submit from reloading the page
 		}
 	});
 
 
-  // I add meteor add matteodem:easy-search
-  // Template.searchBox.helpers({
-  //   playersIndex: () => PlayersIndex
-  // });
 
  // This Add Current Time 
- Template.time.helpers({ time : new Date()});
+ // Template.time.helpers({ time : new Date()});
 
