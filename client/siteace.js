@@ -207,7 +207,7 @@ Template.comment.events({
       }
 
       //  put your website saving code in here! 
-      return true;// start the form submit from reloading the page
+      return false;// start the form submit from reloading the page
     }
   });
 
@@ -237,7 +237,8 @@ Template.website_form.events({
         description:description,
         createdOn:new Date(),
         uprating: 0,
-        downrating: 0
+        downrating: 0,
+        createdBy:Meteor.user()._id
       });
             }//end of if 
 			return true;// start the form submit from reloading the page
