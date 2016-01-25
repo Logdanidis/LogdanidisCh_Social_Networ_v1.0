@@ -116,7 +116,7 @@ Template.body.helpers({username:function(){
 // helper function that returns all available websites
 Template.website_list.helpers({
 	websites:function(){
-		return Websites.find({}, {sort:{createdOn:-1}});
+		return Websites.find({}, {sort:{uprating:-1}});
 	},
   getUser:function(user_id){
     var user = Meteor.users.findOne({_id:user_id});
@@ -153,10 +153,6 @@ Template.comment_list.helpers({
 Template.website_item.events({
 
 	"click .js-upvote":function(event){
-    // var moveUP = 0;
-
-    // moveUP += 1;
-    //     document.getElementById("moveUP").innerHTML = moveUP;
 
 		// example of how you can access the id for the website in the database
 		// (this is the data context for the template)
@@ -165,9 +161,15 @@ Template.website_item.events({
 
 
 		// put the code in here to add a vote to a website!
+    var myrating =Websites.findOne({_id:website_id}).uprating +1;
+    console.log(myrating);
+
+    Websites.update({_id:website_id}, 
+      {$set: {uprating:myrating}});
 			return false;// prevent the button from reloading the page
 		}, 
 		"click .js-downvote":function(event){
+
 			// example of how you can access the id for the website in the database
 		// (this is the data context for the template)
 		var website_id = this._id;
@@ -175,6 +177,11 @@ Template.website_item.events({
 
 
 			// put the code in here to remove a vote from a website!
+      var myrating =Websites.findOne({_id:website_id}).downrating +1;
+      console.log(myrating);
+
+      Websites.update({_id:website_id}, 
+        {$set: {downrating:myrating}});
 			return false;// prevent the button from reloading the page
 		}
   });
@@ -200,7 +207,7 @@ Template.comment.events({
       }
 
       //  put your website saving code in here! 
-      return true;// stop the form submit from reloading the page
+      return true;// start the form submit from reloading the page
     }
   });
 
@@ -216,24 +223,26 @@ Template.website_form.events({
       url = event.target.url.value;
       description = event.target.description.value;
       // createdOn = event.target.createdOn.new Date();
-      console.log("The url they entered is: "+url)
-      console.log("The url they entered is: "+title)
-      console.log("The url they entered is: "+description)
+      console.log("The url they entered is: "+url);
+      console.log("The url they entered is: "+title);
+      console.log("The url they entered is: "+description);
       // console.log("The url they entered is: "+createdOn)
-
-      Websites.insert({
+      
+		//  put your website saving code in here!	
+    if (Meteor.user()){
+      Websites.insert
+      ({
         title:title,
         url:url,
         description:description,
-        createdOn: new Date(),
-        createdBy:Meteor.user()._id
+        createdOn:new Date(),
+        uprating: 0,
+        downrating: 0
       });
-		//  put your website saving code in here!	
-			return true;// stop the form submit from reloading the page
+            }//end of if 
+			return true;// start the form submit from reloading the page
 		}
 	});
-
-
 
  // This Add Current Time 
  // Template.time.helpers({ time : new Date()});
