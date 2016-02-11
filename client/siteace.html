@@ -10,14 +10,16 @@
 </body>
 <!-- I Add meteor add iron:routerpack -->
 <template name="ApplicationLayout">
-	{{> yield "navbar"}}
-	<div class="container">
-		{{> yield "welcome"}}
-		<div class="jumbotron">
-			{{> yield "head"}}
-			{{> yield "main"}}
+	<div class="bgimage">
+		{{> yield "navbar"}}
+		<div class="container">
+			{{> yield "welcome"}}
+			<div class="jumbotron">
+				{{> yield "head"}}
+				{{> yield "main"}}
+			</div>
+			{{> yield "footer"}}
 		</div>
-		{{> yield "footer"}}
 	</div>
 </template>
 
@@ -59,7 +61,7 @@
 
 <template name="welcome">
 	<div class="container">
-		<h1>Welcome! </h1>
+		<h1><b>Welcome!</b></h1>
 	</div>
 </template>
 
@@ -225,7 +227,7 @@
 
 		<!-- I Add A Footer In Page -->
 		<footer class="footer footerColor">
-			<p><ins>&copy; 2016 Charalampos Logdanidis.</ins></p>
+			<p><b><ins>&copy; 2016 Charalampos Logdanidis.</ins></b></p>
 		</footer>
 	</template>
 

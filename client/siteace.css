@@ -1,4 +1,23 @@
 /* CSS declarations go here */
+
+.bgimage {
+background-image: url('NewYork_2.jpg');
+background-size: 100%;
+}
+
 .hidden_div{
 	display:none;
+}
+
+h1 {
+	color: #00cccc;
+}
+
+.footerColor {
+	color: #00cccc;
+}
+
+.jumbotron {
+   background: rgb(200, 54, 54); /* This is for ie8 and below */
+   background-color:rgba(255,255,255,0.9); 
 }
